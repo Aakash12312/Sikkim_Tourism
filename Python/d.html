@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>360° Panorama Viewer with Multiple Hotspots</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css" />
+  <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
+  <style>
+    body { margin: 0; }
+    #panorama { width: 100%; height: 100vh; }
+    .pnlm-hotspot-base { cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<div id="panorama"></div>
+
+<script>
+const arrowIcon = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAvUlEQVQ4T2NkoBAwUqifgXkYCYICZgYGBgQxE3eJzLQAqF2C0CTzFw5gFh0GJCEiAakQk3IQhDyBiIeoClBlQ5hiATkRzDFBOoAGQZZkGsXoHxLQBzKICqgCh5GqACkCVGBZgZGBgYHzpAlEmJkZGR8TsEBpAkZi+BYZCCOYhZgYGJgYmNhWkMwPBQyoHUVYiKkA2SnYI2ZGAfIRsQJfEEcBK2gAow0p0DJRrIYAAAAASUVORK5CYII=';
+
+// Initialize viewer with multiple scenes
+var viewer = pannellum.viewer('panorama', {
+    default: {
+        firstScene: 'bedroom',
+        sceneFadeDuration: 1000
+    },
+    autoLoad: true,
+    showControls: true,
+    scenes: {
+        bedroom: {
+            type: 'equirectangular',
+            panorama: './bedroom.jpg',
+            hotSpots: [
+                {
+                    pitch: 0,
+                    yaw: 90,       // position for first door
+                    type: 'scene',
+                    text: 'Go to Living Room',
+                    sceneId: 'livingroom',
+                    createTooltipFunc: function(hotSpotDiv, args) {
+                        const img = document.createElement('img');
+                        img.src = arrowIcon;
+                        img.style.width = '50px';
+                        img.style.height = '50px';
+                        hotSpotDiv.appendChild(img);
+                    }
+                },
+                {
+                    pitch: 0,
+                    yaw: -90,      // position for second door
+                    type: 'scene',
+                    text: 'Go to Kitchen',
+                    sceneId: 'kitchen',
+                    createTooltipFunc: function(hotSpotDiv, args) {
+                        const img = document.createElement('img');
+                        img.src = arrowIcon;
+                        img.style.width = '50px';
+                        img.style.height = '50px';
+                        hotSpotDiv.appendChild(img);
+                    }
+                }
+            ]
+        },
+        livingroom: {
+            type: 'equirectangular',
+            panorama: './livingroom.jpg',
+            hotSpots: [
+                {
+                    pitch: 0,
+                    yaw: -90,
+                    type: 'scene',
+                    text: 'Go to Bedroom',
+                    sceneId: 'bedroom',
+                    createTooltipFunc: function(hotSpotDiv, args) {
+                        const img = document.createElement('img');
+                        img.src = arrowIcon;
+                        img.style.width = '50px';
+                        img.style.height = '50px';
+                        hotSpotDiv.appendChild(img);
+                    }
+                }
+            ]
+        },
+        kitchen: {
+            type: 'equirectangular',
+            panorama: 'https://pannellum.org/images/alma.jpg',
+            hotSpots: [
+                {
+                    pitch: 0,
+                    yaw: 0,
+                    type: 'scene',
+                    text: 'Go to Bedroom',
+                    sceneId: 'bedroom',
+                    createTooltipFunc: function(hotSpotDiv, args) {
+                        const img = document.createElement('img');
+                        img.src = arrowIcon;
+                        img.style.width = '50px';
+                        img.style.height = '50px';
+                        hotSpotDiv.appendChild(img);
+                    }
+                }
+            ]
+        }
+    }
+});
+</script>
+
+</body>
+</html>
