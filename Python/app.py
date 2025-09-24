@@ -7,6 +7,10 @@ import traceback
 from groq import Groq
 import os
 from dotenv import load_dotenv
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
 
 # Load variables from .env file
 load_dotenv()
@@ -22,7 +26,6 @@ except Exception as e:
     embeddings_matrix = np.array([])
 
 
-app = Flask(__name__)
 client = Groq(api_key=API_KEY)
 @app.route("/itinerary", methods=["POST"])
 def itinerary():

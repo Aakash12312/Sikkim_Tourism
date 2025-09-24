@@ -32,7 +32,7 @@ export default function ItineraryPlanner() {
 
         try {
             console.log("Sending request with:", { days, people, budget });
-            const res = await fetch("http://192.168.1.8:5000/itinerary", {
+            const res = await fetch("http://192.168.1.7:5000/itinerary", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ days, people, budget }),

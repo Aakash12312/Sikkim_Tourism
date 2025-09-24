@@ -1,73 +1,85 @@
-import { Tabs, usePathname } from "expo-router";
+import { Drawer } from "expo-router/drawer";
+import { usePathname } from "expo-router";
 import ChatBotButton from "../../components/ChatBotButton";
 import { Ionicons } from "@expo/vector-icons";
-
-export default function TabsLayout() {
+export default function DrawerLayout() {
   return (
     <>
-      <Tabs
+      <Drawer
         screenOptions={{
           headerShown: true,
-          tabBarActiveTintColor: "#2e8b57",
+          drawerActiveTintColor: "#2e8b57",
+          drawerType: "slide",
         }}
       >
-        <Tabs.Screen
+        <Drawer.Screen
           name="index"
           options={{
             title: "Home",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home" color={color} size={size} />
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="home-outline" color={color} size={size} />
             ),
           }}
         />
-        <Tabs.Screen
+        <Drawer.Screen
           name="explore"
           options={{
             title: "Explore",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="compass" color={color} size={size} />
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="compass-outline" color={color} size={size} />
             ),
           }}
         />
-        <Tabs.Screen
+        <Drawer.Screen
           name="about"
           options={{
             title: "About",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="information-circle" color={color} size={size} />
+            drawerIcon: ({ color, size }) => (
+              <Ionicons
+                name="information-circle-outline"
+                color={color}
+                size={size}
+              />
             ),
           }}
         />
-        <Tabs.Screen
+        <Drawer.Screen
           name="panorama"
           options={{
             title: "Panorama",
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="planet" color={color} size={size} />
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="planet-outline" color={color} size={size} />
             ),
           }}
         />
-        <Tabs.Screen
-        name="itinerary"
-        options={{
-          title: "Itinerary",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar" size={size} color={color} />
-          ),
-        }}
-      />
-      </Tabs>
-
+        <Drawer.Screen
+          name="itinerary"
+          options={{
+            title: "Itinerary",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="people-outline" size={size} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="cultural_calendar"
+          options={{
+            title: "Cultural Calendar",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="calendar-outline" size={size} color={color} />
+            ),
+          }}
+        />
+      </Drawer>
       <ChatBotButtonWrapper />
     </>
   );
 }
-
-// ✅ This will now also work for /places/* because we don't exclude them
+// ✅ Keep your chatbot button logic intact
 function ChatBotButtonWrapper() {
   const pathname = usePathname();
 
-  // Hide chatbot ONLY on index ("/") and panorama
+  // Hide chatbot ONLY on panorama (or other conditions)
   if (pathname.includes("panorama")) return null;
 
   return <ChatBotButton />;

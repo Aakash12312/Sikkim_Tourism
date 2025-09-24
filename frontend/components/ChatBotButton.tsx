@@ -47,7 +47,8 @@ export default function ChatBotButton() {
         setLoading(true);
 
         try {
-            const res = await fetch("http://192.168.1.8:5000/chat", {
+            console.log("Sending message to chatbot:", input);
+            const res = await fetch("http://192.168.130.39:5000/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: input }),
